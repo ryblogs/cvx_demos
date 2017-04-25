@@ -20,7 +20,7 @@ def cvxit(A,b):
     # Construct the problem.
     x = cvx.Variable(A.shape[1])
     objective = cvx.Minimize(cvx.sum_squares(A*x - b))
-    constraints = [5 <= x, x <= 10]
+    constraints = [0 <= x, x <= 1]
     prob = cvx.Problem(objective, constraints)
     
     # The optimal objective is returned by prob.solve().
@@ -30,6 +30,6 @@ def cvxit(A,b):
     # The optimal Lagrange multiplier for a constraint
     # is stored in constraint.dual_value.
     #print(constraints[0].dual_value)
-    return np.array(x.value)
+    return np.array(x.value).flatten()
 
 X = cvxit(A,b)
